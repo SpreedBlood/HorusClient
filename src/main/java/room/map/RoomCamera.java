@@ -1,4 +1,4 @@
-package room;
+package room.map;
 
 import config.StaticSettings;
 
@@ -11,8 +11,8 @@ public class RoomCamera {
     private int y;
 
     public RoomCamera() {
-        this.x = StaticSettings.WIDTH;
-        this.y = StaticSettings.HEIGHT;
+        this.x = StaticSettings.WIDTH / 2;
+        this.y = StaticSettings.HEIGHT / 2;
     }
 
     public void move(int x, int y) {
@@ -27,5 +27,4 @@ public class RoomCamera {
     public int getY() {
         return this.y;
     }
-
 }

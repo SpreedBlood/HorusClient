@@ -17,6 +17,7 @@ public class SpriteStorage {
     public SpriteStorage() {
         this.images = new HashMap<>();
         this.addSprite("tile.png");
+        this.addSprite("tileoutline.png");
     }
 
     public BufferedImage getSprite(String name) {

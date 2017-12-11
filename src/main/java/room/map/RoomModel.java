@@ -1,6 +1,7 @@
-package room;
+package room.map;
 
 import config.StaticSettings;
+import main.Mouse;
 
 import java.awt.*;
 
@@ -14,8 +15,9 @@ public class RoomModel {
     private Tile[][] roomTiles;
     private TileState[][] tileStates;
     private RoomCamera camera;
+    private Tile hoveringTile;
 
-    RoomModel(String heightMap, RoomCamera camera) {
+    public RoomModel(String heightMap, RoomCamera camera) {
         this.camera = camera;
         this.parseHeightMap(heightMap);
     }
@@ -51,10 +53,10 @@ public class RoomModel {
         }
     }
 
-    void render(Graphics graphics) {
+    public void render(Graphics graphics) {
         graphics.clearRect(0, 0, StaticSettings.WIDTH, StaticSettings.HEIGHT);
-        for (int x = 0; x < roomTiles[0].length; x++) {
-            for (int y = 0; y < roomTiles[x].length; y++) {
+        for (int x = 0; x < this.mapSizeX; x++) {
+            for (int y = 0; y < this.mapSizeY; y++) {
                 if (this.tileStates[x][y] == TileState.OPEN)
                     this.roomTiles[x][y].render(graphics, this.camera);
             }
@@ -144,4 +146,19 @@ public class RoomModel {
         }
     }
 
+    public void setHovering(int x, int y) {
+        try {
+            //If hovering over something, stop.
+            if (this.hoveringTile != null)
+                this.hoveringTile.setHovering(false);
+
+            //Check if new hovering tile exist, hover it, and swap the old one with new one.
+            Tile newHoveringTile = this.roomTiles[x][y];
+            if (newHoveringTile != null) {
+                newHoveringTile.setHovering(true);
+                this.hoveringTile = newHoveringTile;
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+        }
+    }
 }

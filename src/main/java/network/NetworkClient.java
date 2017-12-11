@@ -1,29 +1,27 @@
-package networking;
+package network;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.socket.nio.NioSocketChannel;
+import main.Game;
+import network.clients.Client;
+import network.packets.PacketManager;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
-import networking.packets.PacketManager;
 
 /**
- * Created by SpreedBlood on 2017-12-06.
+ * Created by SpreedBlood on 2017-12-09.
  */
-public class Client implements Runnable {
+public class NetworkClient {
 
-    private int port;
-    private String host;
+    private final int port;
+    private final String host;
 
-    public Client(String host, int port) {
+    public NetworkClient(final String host, final int port) {
         this.host = host;
         this.port = port;
     }
 
-    @Override
     public void run() {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -35,13 +33,14 @@ public class Client implements Runnable {
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
-                    ch.pipeline().addLast(new Handler(new PacketManager()));
+                    ch.pipeline().addLast(new Encoder()).addLast(new Decoder()).addLast(new Handler(new PacketManager()));
                 }
             });
 
             ChannelFuture f = b.connect(this.host, this.port).sync();
-            if (f.isSuccess())
+            if (f.isSuccess()) {
                 System.out.println("Successfully connected to host: " + this.host + " on port: " + this.port);
+            }
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         } finally {
