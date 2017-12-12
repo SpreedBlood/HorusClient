@@ -33,9 +33,22 @@ public class Tile {
         int isoY = camera.getY() + (this.y * 16) + (this.x * 16);
 
         if (this.wallType != WallType.NONE) {
-            if (this.wallType == WallType.RIGHT || this.wallType == WallType.DOOR_RIGHT) {
+
+            System.out.println(this.wallType);
+
+            if (this.wallType == WallType.DOOR_RIGHT) {
+                graphics.drawImage(this.wallImage, isoX + 33, isoY - 124, null);
+            }
+
+            if (this.wallType == WallType.DOOR_LEFT) {
+                graphics.drawImage(this.wallImage, isoX + 30, isoY - 106, null);
+            }
+
+            if (this.wallType == WallType.RIGHT) {
                 graphics.drawImage(this.wallImage, 33 + isoX, isoY - 124, null);
-            } else {
+            }
+
+            if (this.wallType == WallType.LEFT) {
                 graphics.drawImage(this.wallImage, isoX - 9, isoY - 125, null);
             }
         }
@@ -69,7 +82,7 @@ public class Tile {
         this.wallType = wallType;
 
         if (this.wallType != WallType.NONE) {
-            this.wallImage = SpriteStorage.getInstance().getSprite(this.wallType == WallType.LEFT ? "wall_left.png" : "wall_right.png");
+            this.wallImage = SpriteStorage.getInstance().getSprite(this.wallType.getFileName());
         }
     }
 

@@ -17,6 +17,8 @@ public class SpriteStorage {
         this.addSprite("tileoutline.png");
         this.addSprite("wall_right.png");
         this.addSprite("wall_left.png");
+        this.addSprite("door_left.png");
+        this.addSprite("door_right.png");
         this.addSprite("avatar.png");
     }
 
