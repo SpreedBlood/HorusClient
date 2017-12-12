@@ -3,7 +3,9 @@ package room.map;
 import config.StaticSettings;
 import room.map.utils.HeightParser;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoomModel {
 
@@ -32,12 +34,37 @@ public class RoomModel {
      */
     public void render(Graphics graphics) {
         graphics.clearRect(0, 0, StaticSettings.WIDTH, StaticSettings.HEIGHT);
+
+        List<Tile> tiles = new ArrayList<>();
+        Tile tile = this.roomTiles[this.doorX][this.doorY];
+
+        // Prioritise door floor before the rest of the floor
+        if (tile != null) {
+            tile.renderFloor(graphics, this.camera);
+        }
+
         for (int x = 0; x < this.mapSizeX; x++) {
             for (int y = 0; y < this.mapSizeY; y++) {
+
+                if (x == this.doorX && y == this.doorY) {
+                    continue;
+                }
+
                 if (this.tileStates[x][y] == TileState.OPEN) {
-                    this.roomTiles[x][y].render(graphics, this.camera);
+                    this.roomTiles[x][y].renderWall(graphics, this.camera);
+                    tiles.add(this.roomTiles[x][y]);
                 }
             }
+        }
+
+        // Prioritise door wall before the rest of the wall
+        if (tile != null) {
+            tile.renderWall(graphics, this.camera);
+        }
+
+        // Render the rest of the tiles
+        for (Tile roomTile : tiles) {
+            roomTile.renderFloor(graphics, this.camera);
         }
     }
 
@@ -159,7 +186,7 @@ public class RoomModel {
                 }
 
                 if (state == TileState.OPEN) {
-                    this.roomTiles[x][y].setWallType(x == this.doorX && y == this.doorY ? WallType.DOOR_RIGHT : WallType.RIGHT);
+                    this.roomTiles[x][y].setWallType(WallType.RIGHT);
                     break;
                 }
             }
@@ -175,7 +202,7 @@ public class RoomModel {
                 }
 
                 if (state == TileState.OPEN) {
-                    this.roomTiles[x][y].setWallType(x == this.doorX && y == this.doorY ? WallType.DOOR_LEFT : WallType.LEFT);
+                    this.roomTiles[x][y].setWallType(WallType.LEFT);
                     break;
                 }
             }
@@ -198,6 +225,7 @@ public class RoomModel {
                         if (state == TileState.OPEN) {
                             this.doorX = x;
                             this.doorY = y;
+                            this.roomTiles[x][y].setDoor(true);
                             return;
                         }
                     }
