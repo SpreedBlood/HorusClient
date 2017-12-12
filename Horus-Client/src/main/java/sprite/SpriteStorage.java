@@ -15,6 +15,8 @@ public class SpriteStorage {
         this.images = new HashMap<>();
         this.addSprite("tile.png");
         this.addSprite("tileoutline.png");
+        this.addSprite("wall_right.png");
+        this.addSprite("wall_left.png");
         this.addSprite("avatar.png");
     }
 

@@ -7,11 +7,13 @@ import java.awt.image.BufferedImage;
 
 public class Tile {
 
+
     private int x;
     private int y;
     private double z;
     private BufferedImage tileImage;
     private BufferedImage tileOutline;
+    private BufferedImage wallImage;
     private boolean hovering;
     private WallType wallType;
 
@@ -29,6 +31,15 @@ public class Tile {
         //Converts 2d points to isometric
         int isoX = camera.getX() - (this.y * 32) + (this.x * 32) - 32;
         int isoY = camera.getY() + (this.y * 16) + (this.x * 16);
+
+        if (this.wallType != WallType.NONE) {
+            if (this.wallType == WallType.RIGHT || this.wallType == WallType.DOOR_RIGHT) {
+                graphics.drawImage(this.wallImage, 33 + isoX, isoY - 124, null);
+            } else {
+                graphics.drawImage(this.wallImage, isoX - 9, isoY - 125, null);
+            }
+        }
+
         graphics.drawImage(this.tileImage, isoX, isoY, null);
 
         if (this.hovering) {
@@ -56,6 +67,10 @@ public class Tile {
      */
     public void setWallType(WallType wallType) {
         this.wallType = wallType;
+
+        if (this.wallType != WallType.NONE) {
+            this.wallImage = SpriteStorage.getInstance().getSprite(this.wallType == WallType.LEFT ? "wall_left.png" : "wall_right.png");
+        }
     }
 
     @Override
