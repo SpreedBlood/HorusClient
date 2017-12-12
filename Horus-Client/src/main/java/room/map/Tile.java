@@ -61,6 +61,20 @@ public class Tile {
                     graphics.drawImage(this.wallImage, isoX - 9, isoY - 125, null);
                 }
             }
+
+            if (this.wallType == WallType.LEFT_AND_RIGHT) {
+                if (this.door) {
+                    graphics.drawImage(SpriteStorage.getInstance().getSprite("door_left.png"), isoX + 32, isoY - 107, null);
+                    graphics.drawImage(SpriteStorage.getInstance().getSprite("door_right.png"), isoX + 33, isoY - 124, null);
+                } else {
+                    graphics.drawImage(SpriteStorage.getInstance().getSprite("wall_left.png"), isoX - 9, isoY - 125, null);
+                    graphics.drawImage(SpriteStorage.getInstance().getSprite("wall_right.png"), isoX + 33, isoY - 124, null);
+                }
+            }
+        }
+
+        if (this.hovering) {
+            graphics.drawImage(this.tileOutline, isoX, isoY - 4, null);
         }
     }
 

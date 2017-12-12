@@ -177,6 +177,8 @@ public class RoomModel {
      * and then increment the coordinate to check the next tile.
      */
     private void findWallTiles() {
+        List<Tile> tiles = new ArrayList<>();
+
         for (int x = 0; x < this.mapSizeX; x++) {
             for (int y = 0; y < this.mapSizeY; y++) {
                 TileState state = this.tileStates[x][y];
@@ -186,7 +188,9 @@ public class RoomModel {
                 }
 
                 if (state == TileState.OPEN) {
-                    this.roomTiles[x][y].setWallType(WallType.RIGHT);
+                    Tile tile = this.roomTiles[x][y];
+                    tile.setWallType(WallType.RIGHT);
+                    tiles.add(tile);
                     break;
                 }
             }
@@ -202,7 +206,13 @@ public class RoomModel {
                 }
 
                 if (state == TileState.OPEN) {
-                    this.roomTiles[x][y].setWallType(WallType.LEFT);
+                    Tile tile = this.roomTiles[x][y];
+
+                    if (tiles.contains(tile) && (x != this.doorX && y != this.doorY)) {
+                        this.roomTiles[x][y].setWallType(WallType.LEFT_AND_RIGHT);
+                    } else {
+                        this.roomTiles[x][y].setWallType(WallType.LEFT);
+                    }
                     break;
                 }
             }
