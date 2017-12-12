@@ -1,14 +1,10 @@
 package room.map;
 
 import config.StaticSettings;
-import main.Mouse;
 import room.map.utils.HeightParser;
 
 import java.awt.*;
 
-/**
- * Created by SpreedBlood on 2017-12-06.
- */
 public class RoomModel {
 
     private int mapSizeX;
@@ -28,28 +24,56 @@ public class RoomModel {
         this.parseHeightMap(heightMap);
     }
 
+    /**
+     * Renders the room grid.
+     *
+     * @param graphics to draw the grid on
+     */
     public void render(Graphics graphics) {
         graphics.clearRect(0, 0, StaticSettings.WIDTH, StaticSettings.HEIGHT);
         for (int x = 0; x < this.mapSizeX; x++) {
             for (int y = 0; y < this.mapSizeY; y++) {
-                if (this.tileStates[x][y] == TileState.OPEN)
+                if (this.tileStates[x][y] == TileState.OPEN) {
                     this.roomTiles[x][y].render(graphics, this.camera);
+                }
             }
         }
     }
 
+    /**
+     * Get the door X coordinate of the map
+     *
+     * @return the x coordinate of the door
+     */
     public int getDoorX() {
         return doorX;
     }
 
+    /**
+     * Get the door Y coordinate of the map
+     *
+     * @return the y coordinate of the door
+     */
     public int getDoorY() {
         return doorY;
     }
 
+    /**
+     * Get the camera of the room
+     *
+     * @return the camera
+     */
     public RoomCamera getCamera() {
         return this.camera;
     }
 
+    /**
+     * Get tile at coordinates
+     *
+     * @param x coordinate
+     * @param y coordinate
+     * @return the tile on the grid if exists.
+     */
     public Tile getTile(int x, int y) {
         try {
             return this.roomTiles[x][y];
@@ -58,11 +82,18 @@ public class RoomModel {
         }
     }
 
+    /**
+     * Apply the hovering image over the tile.
+     *
+     * @param x coordinate
+     * @param y coordinate
+     */
     public void setHovering(int x, int y) {
         try {
             //If hovering over something, stop.
-            if (this.hoveringTile != null)
+            if (this.hoveringTile != null) {
                 this.hoveringTile.setHovering(false);
+            }
 
             //Check if new hovering tile exist, hover it, and swap the old one with new one.
             Tile newHoveringTile = this.roomTiles[x][y];
@@ -74,6 +105,10 @@ public class RoomModel {
         }
     }
 
+    /**
+     * Parses the heightmap and fills the array
+     * @param heightMap the heightmap in string format
+     */
     private void parseHeightMap(String heightMap) {
         String[] temporary = heightMap.split("\\{13}");
         this.mapSizeX = temporary[0].length();

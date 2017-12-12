@@ -1,19 +1,17 @@
 package network;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.socket.nio.NioSocketChannel;
-import main.Game;
-import network.clients.Client;
-import network.packets.PacketManager;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
+import main.Game;
+import network.client.Client;
+import network.packets.PacketManager;
 
-import java.net.InetAddress;
-
-/**
- * Created by SpreedBlood on 2017-12-09.
- */
 public class NetworkClient {
 
     private final int port;

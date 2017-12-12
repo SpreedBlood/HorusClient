@@ -11,5 +11,6 @@
     <modules>
         <module>Horus-Server</module>
         <module>Horus-Client</module>
+        <module>Horus-Protocol</module>
     </modules>
 </project>

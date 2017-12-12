@@ -2,9 +2,6 @@ package room.map;
 
 import config.StaticSettings;
 
-/**
- * Created by SpreedBlood on 2017-12-06.
- */
 public class RoomCamera {
 
     private int x;

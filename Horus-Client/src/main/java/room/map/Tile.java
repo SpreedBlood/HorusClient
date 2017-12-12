@@ -5,9 +5,6 @@ import sprite.SpriteStorage;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-/**
- * Created by SpreedBlood on 2017-12-06.
- */
 public class Tile {
 
     private int x;
@@ -17,7 +14,7 @@ public class Tile {
     private BufferedImage tileOutline;
     private boolean hovering;
 
-    Tile(int x, int y, double z) {
+    public Tile(int x, int y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;

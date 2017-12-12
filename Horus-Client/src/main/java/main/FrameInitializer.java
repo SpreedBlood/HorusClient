@@ -4,11 +4,12 @@ import config.StaticSettings;
 
 import java.awt.*;
 
-/**
- * Created by SpreedBlood on 2017-12-10.
- */
-public final class FrameInitializer {
+final class FrameInitializer {
 
+    /**
+     * This is used to initialize the game and prevent the main game class to become to big.
+     * @param instance of the game
+     */
     static void initialize(Game instance) {
         instance.getSize(new Dimension(StaticSettings.WIDTH, StaticSettings.HEIGHT));
         Frame frame = new Frame("Habbo Client");

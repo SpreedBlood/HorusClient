@@ -10,12 +10,6 @@ public class PacketExecutor implements Runnable {
     private final Client client;
     private final ClientPacket clientPacket;
 
-    /**
-     * Used to execute packet on the event loop
-     * @param client the client
-     * @param clientPacket the clientPacket
-     * @param packet the packet to run
-     */
     public PacketExecutor(final Client client, final ClientPacket clientPacket, final IPacket packet) {
         this.packet = packet;
         this.client = client;

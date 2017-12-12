@@ -1,8 +1,8 @@
 package room.map.utils;
 
-/**
- * Created by SpreedBlood on 2017-12-11.
- */
+import room.map.Tile;
+import room.map.TileState;
+
 public final class HeightParser {
 
     public static double getHeight(char c) {

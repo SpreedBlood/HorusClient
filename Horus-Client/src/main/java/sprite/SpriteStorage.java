@@ -7,14 +7,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by SpreedBlood on 2017-12-06.
- */
 public class SpriteStorage {
 
     private Map<String, BufferedImage> images;
 
-    public SpriteStorage() {
+    private SpriteStorage() {
         this.images = new HashMap<>();
         this.addSprite("tile.png");
         this.addSprite("tileoutline.png");
