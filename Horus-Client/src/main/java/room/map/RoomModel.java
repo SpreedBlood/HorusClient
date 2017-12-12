@@ -9,13 +9,14 @@ public class RoomModel {
 
     private int mapSizeX;
     private int mapSizeY;
+
+    private int doorX;
+    private int doorY;
+
     private Tile[][] roomTiles;
     private TileState[][] tileStates;
     private RoomCamera camera;
     private Tile hoveringTile;
-
-    private int doorX;
-    private int doorY;
 
     public RoomModel(String heightMap, RoomCamera camera) {
         this.camera = camera;
@@ -125,11 +126,9 @@ public class RoomModel {
             int x = 0;
 
             for (char square : line.toCharArray()) {
-
                 if (square == 'x') {
                     this.tileStates[x][y] = TileState.CLOSED;
                 } else {
-
                     this.tileStates[x][y] = TileState.OPEN;
                     this.roomTiles[x][y] = new Tile(x, y, HeightParser.getHeight(square));
                 }
@@ -137,6 +136,34 @@ public class RoomModel {
                 x++;
             }
         }
+
+        this.locateDoor();
+        System.out.println("Found door with coordinates: " + this.doorX + ", " + this.doorY);
     }
 
+    /**
+     * Locate the door by finding the first open tile
+     * while iterating vertically on the tile states.
+     */
+    private void locateDoor() {
+        try {
+            for (int x = 0; x < this.mapSizeX; x++) {
+                for (int y = 0; y < this.mapSizeY; y++) {
+                    TileState[] states = this.tileStates[x];
+
+                    if (states.length > 0) {
+                        TileState state = this.tileStates[x][y];
+
+                        if (state == TileState.OPEN) {
+                            this.doorX = x;
+                            this.doorY = y;
+                            return;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
