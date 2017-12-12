@@ -33,9 +33,6 @@ public class Tile {
         int isoY = camera.getY() + (this.y * 16) + (this.x * 16);
 
         if (this.wallType != WallType.NONE) {
-
-            System.out.println(this.wallType);
-
             if (this.wallType == WallType.DOOR_RIGHT) {
                 graphics.drawImage(this.wallImage, isoX + 33, isoY - 124, null);
             }
