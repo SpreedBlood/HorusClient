@@ -50,13 +50,13 @@ public class Tile {
                 if (this.door) {
                     graphics.drawImage(this.wallImage, isoX + 33, isoY - 124, null);
                 } else {
-                    graphics.drawImage(this.wallImage, 33 + isoX, isoY - 124, null);
+                    graphics.drawImage(this.wallImage, isoX + 33, isoY - 124, null); // TODO: Align door for the right side
                 }
             }
 
             if (this.wallType == WallType.LEFT) {
                 if (this.door) {
-                    graphics.drawImage(this.wallImage, isoX + 30, isoY - 106, null);
+                    graphics.drawImage(this.wallImage, isoX + 32, isoY - 107, null);
                 } else {
                     graphics.drawImage(this.wallImage, isoX - 9, isoY - 125, null);
                 }
@@ -94,6 +94,7 @@ public class Tile {
                 }
             } else {
                 this.wallImage = SpriteStorage.getInstance().getSprite(this.wallType.getFileName());
+
             }
         }
     }
