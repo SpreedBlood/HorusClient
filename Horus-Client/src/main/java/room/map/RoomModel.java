@@ -159,7 +159,7 @@ public class RoomModel {
                 }
 
                 if (state == TileState.OPEN) {
-                    this.roomTiles[x][y].setHasWall(true);
+                    this.roomTiles[x][y].setWallType(x == this.doorX && y == this.doorY ? WallType.DOOR_RIGHT : WallType.RIGHT);
                     break;
                 }
             }
@@ -175,7 +175,7 @@ public class RoomModel {
                 }
 
                 if (state == TileState.OPEN) {
-                    this.roomTiles[x][y].setHasWall(true);
+                    this.roomTiles[x][y].setWallType(x == this.doorX && y == this.doorY ? WallType.DOOR_LEFT : WallType.LEFT);
                     break;
                 }
             }

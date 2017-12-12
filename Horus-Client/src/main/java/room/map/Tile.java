@@ -13,7 +13,7 @@ public class Tile {
     private BufferedImage tileImage;
     private BufferedImage tileOutline;
     private boolean hovering;
-    private boolean hasWall;
+    private WallType wallType;
 
     public Tile(int x, int y, double z) {
         this.x = x;
@@ -21,8 +21,8 @@ public class Tile {
         this.z = z;
         this.tileImage = SpriteStorage.getInstance().getSprite("tile.png");
         this.tileOutline = SpriteStorage.getInstance().getSprite("tileoutline.png");
+        this.wallType = WallType.NONE;
         this.hovering = false;
-        this.hasWall = false;
     }
 
     void render(Graphics graphics, RoomCamera camera) {
@@ -46,16 +46,16 @@ public class Tile {
      * @return true, if successful
      */
     public boolean hasWall() {
-        return hasWall;
+        return this.wallType != WallType.NONE;
     }
 
     /**
-     * Sets that the tile has a wall
+     * Sets the wall type that the tile has.
      *
-     * @param hasWall if the tile has a wall
+     * @param wallType if the tile has a wall
      */
-    public void setHasWall(boolean hasWall) {
-        this.hasWall = hasWall;
+    public void setWallType(WallType wallType) {
+        this.wallType = wallType;
     }
 
     @Override
