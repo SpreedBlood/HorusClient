@@ -25,16 +25,25 @@ public class MouseMotionHandler implements MouseMotionListener {
      */
     @Override
     public void mouseMoved(MouseEvent e) {
-        RoomCamera camera = this.game.getRoom().getModel().getCamera();
 
-        if (camera != null) {
-            int cameraX = camera.getX();
-            int cameraY = camera.getY();
-            int x = e.getX() - cameraX;
-            int y = e.getY() - cameraY;
-            int isoX = (y + x / 2) / 32;
-            int isoY = (y - x / 2) / 32;
-            this.game.getRoom().getModel().setHovering(isoX, isoY);
+        if (this.game.getRoom() == null) {
+            return;
+        }
+
+        try {
+            RoomCamera camera = this.game.getRoom().getModel().getCamera();
+
+            if (camera != null) {
+                int cameraX = camera.getX();
+                int cameraY = camera.getY();
+                int x = e.getX() - cameraX;
+                int y = e.getY() - cameraY;
+                int isoX = (y + x / 2) / 32;
+                int isoY = (y - x / 2) / 32;
+                this.game.getRoom().getModel().setHovering(isoX, isoY);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
