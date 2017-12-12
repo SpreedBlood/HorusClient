@@ -138,7 +138,48 @@ public class RoomModel {
         }
 
         this.locateDoor();
+        this.findWallTiles();
+
         System.out.println("Found door with coordinates: " + this.doorX + ", " + this.doorY);
+
+    }
+
+    /**
+     * Finds and marks the wall tiles located on this model, it will left to right
+     * and down, find the first open tile, and then mark it as a wall tile, break the loop
+     * and then increment the coordinate to check the next tile.
+     */
+    private void findWallTiles() {
+        for (int x = 0; x < this.mapSizeX; x++) {
+            for (int y = 0; y < this.mapSizeY; y++) {
+                TileState state = this.tileStates[x][y];
+
+                if (state == null) {
+                    return;
+                }
+
+                if (state == TileState.OPEN) {
+                    this.roomTiles[x][y].setHasWall(true);
+                    break;
+                }
+            }
+        }
+
+        for (int y = 0; y < this.mapSizeY; y++) {
+            for (int x = 0; x < this.mapSizeX; x++) {
+
+                TileState state = this.tileStates[x][y];
+
+                if (state == null) {
+                    return;
+                }
+
+                if (state == TileState.OPEN) {
+                    this.roomTiles[x][y].setHasWall(true);
+                    break;
+                }
+            }
+        }
     }
 
     /**
