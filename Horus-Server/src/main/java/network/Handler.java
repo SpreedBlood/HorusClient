@@ -33,14 +33,24 @@ class Handler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf buffer = (ByteBuf)msg;
-        ClientPacket clientPacket = new ClientPacket(buffer);
-        short header = clientPacket.getHeader();
-        IPacket packet = this.packetManager.getPacket(header);
+
+        ClientPacket message = new ClientPacket(buffer);
+
+        IPacket packet = this.packetManager.getPacket(message.getHeader());
         Client client = this.clientManager.getClient(ctx.channel().id());
+
         if (packet != null && client != null) {
-            ctx.executor().submit(new PacketExecutor(client, clientPacket, packet));
+            ctx.executor().submit(new PacketExecutor(client, message, packet));
         } else {
-            System.out.println("Error while processing packet: " + header);
+            System.out.println("Error while processing packet: " + message.getHeader());
+
+            if (packet == null) {
+                System.out.println("Client packet is null");
+            }
+
+            if (client == null) {
+                System.out.println("Client instance is null");
+            }
         }
     }
 }

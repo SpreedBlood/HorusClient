@@ -12,6 +12,8 @@ import main.Game;
 import network.client.Client;
 import network.packets.PacketManager;
 
+import java.util.concurrent.TimeUnit;
+
 public class NetworkClient {
 
     private final int port;
@@ -45,6 +47,9 @@ public class NetworkClient {
                 Game.initialize(new Client(connectFuture.channel()));
             } else {
                 System.out.println("Failed to connect to the server: " + this.host + " on port: " + this.port);
+                System.out.println("Reconnection attempt in 5 seconds...");
+                Thread.sleep(TimeUnit.SECONDS.toMillis(5));
+                this.run();
             }
         });
     }

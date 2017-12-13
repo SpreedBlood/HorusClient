@@ -13,7 +13,10 @@ public class Tile {
     private double z;
     private BufferedImage tileImage;
     private BufferedImage tileOutline;
-    private BufferedImage wallImage;
+    private BufferedImage doorLeft;
+    private BufferedImage doorRight;
+    private BufferedImage wallLeft;
+    private BufferedImage wallRight;
     private boolean hovering;
     private boolean door;
     private WallType wallType;
@@ -24,6 +27,10 @@ public class Tile {
         this.z = z;
         this.tileImage = SpriteStorage.getInstance().getSprite("tile.png");
         this.tileOutline = SpriteStorage.getInstance().getSprite("tileoutline.png");
+        this.doorLeft = SpriteStorage.getInstance().getSprite("door_left.png");
+        this.doorRight = SpriteStorage.getInstance().getSprite("door_right.png");
+        this.wallLeft = SpriteStorage.getInstance().getSprite("wall_left.png");
+        this.wallRight = SpriteStorage.getInstance().getSprite("wall_right.png");
         this.wallType = WallType.NONE;
         this.hovering = false;
     }
@@ -48,33 +55,29 @@ public class Tile {
         if (this.wallType != WallType.NONE) {
             if (this.wallType == WallType.RIGHT) {
                 if (this.door) {
-                    graphics.drawImage(this.wallImage, isoX + 33, isoY - 124, null);
+                    graphics.drawImage(this.doorRight, isoX + 33, isoY - 124, null);
                 } else {
-                    graphics.drawImage(this.wallImage, isoX + 33, isoY - 124, null); // TODO: Align door for the right side
+                    graphics.drawImage(this.wallRight, isoX + 33, isoY - 124, null); // TODO: Align door for the right side
                 }
             }
 
             if (this.wallType == WallType.LEFT) {
                 if (this.door) {
-                    graphics.drawImage(this.wallImage, isoX + 32, isoY - 107, null);
+                    graphics.drawImage(this.doorLeft, isoX + 32, isoY - 107, null);
                 } else {
-                    graphics.drawImage(this.wallImage, isoX - 9, isoY - 125, null);
+                    graphics.drawImage(this.wallLeft, isoX - 9, isoY - 125, null);
                 }
             }
 
             if (this.wallType == WallType.LEFT_AND_RIGHT) {
                 if (this.door) {
-                    graphics.drawImage(SpriteStorage.getInstance().getSprite("door_left.png"), isoX + 32, isoY - 107, null);
-                    graphics.drawImage(SpriteStorage.getInstance().getSprite("door_right.png"), isoX + 33, isoY - 124, null);
+                    graphics.drawImage(this.doorLeft, isoX + 32, isoY - 107, null);
+                    graphics.drawImage(this.doorRight, isoX + 33, isoY - 124, null);
                 } else {
-                    graphics.drawImage(SpriteStorage.getInstance().getSprite("wall_left.png"), isoX - 9, isoY - 125, null);
-                    graphics.drawImage(SpriteStorage.getInstance().getSprite("wall_right.png"), isoX + 33, isoY - 124, null);
+                    graphics.drawImage(this.wallLeft, isoX - 9, isoY - 125, null);
+                    graphics.drawImage(this.wallRight, isoX + 33, isoY - 124, null);
                 }
             }
-        }
-
-        if (this.hovering) {
-            graphics.drawImage(this.tileOutline, isoX, isoY - 4, null);
         }
     }
 
@@ -98,19 +101,6 @@ public class Tile {
      */
     public void setWallType(WallType wallType) {
         this.wallType = wallType;
-
-        if (this.wallType != WallType.NONE) {
-            if (this.door) {
-                if (this.wallType == WallType.RIGHT) {
-                    this.wallImage = SpriteStorage.getInstance().getSprite("door_right.png");
-                } else {
-                    this.wallImage = SpriteStorage.getInstance().getSprite("door_left.png");
-                }
-            } else {
-                this.wallImage = SpriteStorage.getInstance().getSprite(this.wallType.getFileName());
-
-            }
-        }
     }
 
     /**

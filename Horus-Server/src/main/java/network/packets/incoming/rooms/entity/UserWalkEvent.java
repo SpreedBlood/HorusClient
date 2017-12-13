@@ -13,6 +13,7 @@ public class UserWalkEvent implements IPacket{
     public void run(Client client, ClientPacket clientPacket) {
         int x = clientPacket.readInt();
         int y = clientPacket.readInt();
-
+        
+        System.out.println("Walk request event: (" + x + ", " + y + ")");
     }
 }

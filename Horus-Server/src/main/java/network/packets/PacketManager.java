@@ -2,6 +2,7 @@ package network.packets;
 
 import network.packets.incoming.handshake.SetupClientEvent;
 import network.packets.incoming.rooms.RoomEntryEvent;
+import network.packets.incoming.rooms.entity.UserWalkEvent;
 import network.packets.types.IPacket;
 
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class PacketManager {
 
     private void registerRoom() {
         put(300, new RoomEntryEvent());
+        put(2, new UserWalkEvent());
     }
 
     private void put(int id, IPacket packet) {
