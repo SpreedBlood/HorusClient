@@ -8,12 +8,22 @@ import network.client.Client;
 import network.packets.types.ClientPacket;
 import network.packets.types.IPacket;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RoomEntryEvent implements IPacket {
 
     @Override
-    public void run(Client client, ClientPacket clientPacket) {
-        int roomId = clientPacket.readInt();
-        String heightMap = clientPacket.readString();
+    public void run(Client client, ClientPacket message) {
+        int roomId = message.readInt();
+        int heightMapSize = message.readInt();
+
+        List<String> heightMap = new ArrayList<>();
+
+        for (int i = 0; i < heightMapSize; i++) {
+            heightMap.add(message.readString());
+        }
+
         HorusClient.getInstance().setRoom(new Room(roomId, new RoomModel(heightMap, new RoomCamera())));
     }
 

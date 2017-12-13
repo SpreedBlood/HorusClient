@@ -20,7 +20,7 @@ public class RoomModel {
     private RoomCamera camera;
     private Tile hoveringTile;
 
-    public RoomModel(String heightMap, RoomCamera camera) {
+    public RoomModel(List<String> heightMap, RoomCamera camera) {
         this.camera = camera;
         this.doorX = 1;
         this.doorY = 11;
@@ -137,15 +137,14 @@ public class RoomModel {
      * Parses the heightmap and fills the array
      * @param heightMap the heightmap in string format
      */
-    private void parseHeightMap(String heightMap) {
-        String[] temporary = heightMap.split("\\{13}");
-        this.mapSizeX = temporary[0].length();
-        this.mapSizeY = temporary.length;
+    private void parseHeightMap(List<String> heightMap) {
+        this.mapSizeX = heightMap.get(0).length();
+        this.mapSizeY = heightMap.size();
         this.roomTiles = new Tile[mapSizeX][mapSizeY];
         this.tileStates = new TileState[mapSizeX][mapSizeY];
 
         for (int y = 0; y < this.mapSizeY; y++) {
-            String line = temporary[y];
+            String line = heightMap.get(y);
 
             line = line.replace(Character.toString((char) 10), "");
             line = line.replace(Character.toString((char) 13), "");

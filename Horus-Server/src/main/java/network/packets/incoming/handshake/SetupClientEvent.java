@@ -5,9 +5,16 @@ import network.packets.outgoing.rooms.RoomDataComposer;
 import network.packets.types.ClientPacket;
 import network.packets.types.IPacket;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class SetupClientEvent implements IPacket {
     @Override
     public void run(Client client, ClientPacket clientPacket) {
-        client.writeAndFlush(new RoomDataComposer(1, "xxxxxxx{13}x00000x{13}x00000x{13}000000x{13}x00000x{13}x00000x{13}x00000x{13}x00000x{13}xxxxxxx"));
+        String heightMap = "xxxxxxx{13}x00000x{13}x00000x{13}000000x{13}x00000x{13}x00000x{13}x00000x{13}x00000x{13}xxxxxxx";
+        List<String> lines = new ArrayList<>(Arrays.asList(heightMap.split("\\{13}")));
+
+        client.writeAndFlush(new RoomDataComposer(1, lines));
     }
 }
