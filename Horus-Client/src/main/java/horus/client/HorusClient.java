@@ -6,7 +6,7 @@ import horus.client.game.room.Room;
 import horus.client.listeners.KeyHandler;
 import horus.client.listeners.MouseHandler;
 import horus.client.listeners.MouseMotionHandler;
-import network.NetworkClient;
+import horus.client.network.NetworkClient;
 import network.client.Client;
 
 import java.awt.*;

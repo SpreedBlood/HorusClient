@@ -1,10 +1,10 @@
-package network;
+package horus.client.network;
 
+import horus.client.network.packets.PacketExecutor;
+import horus.client.network.packets.PacketManager;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import horus.client.HorusClient;
 import network.client.Client;
-import network.packets.PacketExecutor;
-import network.packets.PacketManager;
 import network.packets.outgoing.handshake.SetupClientComposer;
 import network.packets.types.ClientPacket;
 import network.packets.types.IPacket;
@@ -31,17 +31,24 @@ class Handler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext channelHandlerContext, Object msg) throws Exception {
+        if (!(msg instanceof ByteBuf)) {
+            return;
+        }
 
-        ClientPacket clientPacket = new ClientPacket((ByteBuf)msg);
-        short header = clientPacket.getHeader();
-        IPacket packet = this.packetManager.getPacket(header);
+        ClientPacket message = new ClientPacket((ByteBuf) msg);
+
+        if (!this.packetManager.hasPacket(message.getHeader())) {
+            System.out.println("No handler registered for packet: " + message.getHeader());
+            return;
+        }
+
+        IPacket packet = this.packetManager.getPacket(message.getHeader());
         Client client = HorusClient.getInstance().getClient();
 
         if (packet != null && client != null) {
-            channelHandlerContext.executor().submit(new PacketExecutor(client, clientPacket, packet));
+            channelHandlerContext.executor().submit(new PacketExecutor(client, message, packet));
         } else {
-            System.out.println("Error while processing packet: " + header);
+            System.out.println("Error while processing packet: " + message.getHeader());
         }
-
     }
 }

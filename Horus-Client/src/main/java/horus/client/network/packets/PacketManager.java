@@ -1,4 +1,4 @@
-package network.packets;
+package horus.client.network.packets;
 
 import horus.client.network.packets.incoming.rooms.RoomEntryEvent;
 import network.packets.types.IPacket;
@@ -17,6 +17,10 @@ public class PacketManager {
 
     private void registerRoom() {
         this.events.put(300, new RoomEntryEvent());
+    }
+
+    public boolean hasPacket(int header) {
+        return this.events.containsKey(header);
     }
 
     public IPacket getPacket(int header) {

@@ -1,5 +1,6 @@
-package network;
+package horus.client.network;
 
+import horus.client.network.packets.PacketManager;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -10,7 +11,6 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import horus.client.HorusClient;
 import network.client.Client;
-import network.packets.PacketManager;
 
 import java.util.concurrent.TimeUnit;
 

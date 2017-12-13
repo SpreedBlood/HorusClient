@@ -32,7 +32,7 @@ class Handler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf buffer = (ByteBuf)msg;
+        ByteBuf buffer = (ByteBuf) msg;
 
         ClientPacket message = new ClientPacket(buffer);
 

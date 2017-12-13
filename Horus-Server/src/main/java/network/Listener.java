@@ -30,7 +30,7 @@ public class Listener implements Runnable {
                     pipeline.addLast(new Handler(new PacketManager(), new ClientManager()));
                 }
             });
-            bootstrap.option(ChannelOption.ALLOCATOR, UnpooledByteBufAllocator.DEFAULT).option(ChannelOption.TCP_NODELAY, true);
+            bootstrap.option(ChannelOption.ALLOCATOR, UnpooledByteBufAllocator.DEFAULT);
             ChannelFuture channel = bootstrap.bind(this.port).sync();
             if (channel.isSuccess()) {
                 System.out.println("Server is now listening on " + this.port);

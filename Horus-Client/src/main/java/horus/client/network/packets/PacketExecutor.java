@@ -1,4 +1,4 @@
-package network.packets;
+package horus.client.network.packets;
 
 import network.client.Client;
 import network.packets.types.ClientPacket;

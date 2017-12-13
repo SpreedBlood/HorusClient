@@ -209,9 +209,9 @@ public class RoomModel {
                     Tile tile = this.roomTiles[x][y];
 
                     if (tiles.contains(tile) && (x != this.doorX && y != this.doorY)) {
-                        this.roomTiles[x][y].setWallType(WallType.LEFT_AND_RIGHT);
+                        tile.setWallType(WallType.LEFT_AND_RIGHT);
                     } else {
-                        this.roomTiles[x][y].setWallType(WallType.LEFT);
+                        tile.setWallType(WallType.LEFT);
                     }
                     break;
                 }
