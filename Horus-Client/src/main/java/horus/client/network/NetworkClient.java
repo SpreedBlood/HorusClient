@@ -8,7 +8,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import horus.client.Horus;
+import horus.client.HorusClient;
 import network.client.Client;
 import network.packets.PacketManager;
 
@@ -44,7 +44,7 @@ public class NetworkClient {
 
         connectFuture.addListener((future) -> {
             if (future.isSuccess()) {
-                Horus.initialize(new Client(connectFuture.channel()));
+                HorusClient.initialize(new Client(connectFuture.channel()));
             } else {
                 System.out.println("Failed to connect to the server: " + this.host + " on port: " + this.port);
                 System.out.println("Reconnection attempt in 5 seconds...");

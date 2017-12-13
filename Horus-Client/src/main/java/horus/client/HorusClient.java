@@ -13,15 +13,15 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 
-public class Horus extends Canvas implements Runnable {
+public class HorusClient extends Canvas implements Runnable {
 
     private boolean isRunning;
     private java.util.List<IRenderable> objectsToRender;
-    private static Horus instance;
+    private static HorusClient instance;
     private Client client;
     private Room room;
 
-    private Horus() {
+    private HorusClient() {
         this.isRunning = false;
         this.objectsToRender = new LinkedList<>();
     }
@@ -101,7 +101,7 @@ public class Horus extends Canvas implements Runnable {
      * Get the instance of the game for global access.
      * @return the instance
      */
-    public static Horus getInstance() {
+    public static HorusClient getInstance() {
         return instance;
     }
 
@@ -175,7 +175,7 @@ public class Horus extends Canvas implements Runnable {
      * @param client the networking client.
      */
     public static void initialize(Client client) {
-        instance = new Horus();
+        instance = new HorusClient();
         instance.setClient(client);
         FrameInitializer.initialize(instance);
     }

@@ -1,7 +1,7 @@
 package horus.client.game;
 
 import config.StaticSettings;
-import horus.client.Horus;
+import horus.client.HorusClient;
 
 import java.awt.*;
 
@@ -11,7 +11,7 @@ public final class FrameInitializer {
      * This is used to initialize the game and prevent the horus.client.main game class to become to big.
      * @param instance of the game
      */
-    public static void initialize(Horus instance) {
+    public static void initialize(HorusClient instance) {
         instance.getSize(new Dimension(StaticSettings.WIDTH, StaticSettings.HEIGHT));
         Frame frame = new Frame("Habbo Client");
         frame.setLayout(new BorderLayout());

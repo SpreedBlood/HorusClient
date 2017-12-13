@@ -1,6 +1,6 @@
 package horus.client.listeners;
 
-import horus.client.Horus;
+import horus.client.HorusClient;
 import horus.client.game.room.map.RoomCamera;
 import network.client.Client;
 import network.packets.outgoing.rooms.entity.MoveEntityComposer;
@@ -10,9 +10,9 @@ import java.awt.event.MouseListener;
 
 public class MouseHandler implements MouseListener {
 
-    private final Horus game;
+    private final HorusClient game;
 
-    public MouseHandler(final Horus game) {
+    public MouseHandler(final HorusClient game) {
         this.game = game;
     }
 

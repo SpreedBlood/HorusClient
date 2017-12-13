@@ -1,7 +1,7 @@
 package network;
 
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import horus.client.Horus;
+import horus.client.HorusClient;
 import network.client.Client;
 import network.packets.PacketExecutor;
 import network.packets.PacketManager;
@@ -21,7 +21,7 @@ class Handler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        Horus.getInstance().getClient().writeAndFlush(new SetupClientComposer());
+        HorusClient.getInstance().getClient().writeAndFlush(new SetupClientComposer());
     }
 
     @Override
@@ -35,7 +35,7 @@ class Handler extends ChannelInboundHandlerAdapter {
         ClientPacket clientPacket = new ClientPacket((ByteBuf)msg);
         short header = clientPacket.getHeader();
         IPacket packet = this.packetManager.getPacket(header);
-        Client client = Horus.getInstance().getClient();
+        Client client = HorusClient.getInstance().getClient();
 
         if (packet != null && client != null) {
             channelHandlerContext.executor().submit(new PacketExecutor(client, clientPacket, packet));
